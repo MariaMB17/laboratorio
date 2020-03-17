@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Model\menu;
+use App\Model\Examenes_subgrupos;
 
 class AuthController extends Controller
 {
@@ -49,9 +51,10 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'tipoUsuario'=>'required|min:1'
         ]);
     }
 
@@ -67,6 +70,12 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'tipoUsuario' => $data['tipoUsuario'],
         ]);
+    }
+
+   public function redirectPath()
+    {
+        return 'home/'.Auth()->user()->tipoUsuario;
     }
 }

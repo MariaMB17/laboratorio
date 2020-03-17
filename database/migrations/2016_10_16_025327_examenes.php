@@ -15,7 +15,7 @@ class Examenes extends Migration
         Schema::create('examenes', function (Blueprint $table) {
             $table->increments('idexamen',11);
             $table->string('decripcion',200);
-            $table->string('v_referencia',12);
+            $table->string('v_referencia_ex',12);
             $table->float('precio');
             $table->timestamps();
         });

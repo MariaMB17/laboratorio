@@ -16,6 +16,12 @@ class ExamenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     public function index()
     {
         $subgrupos = Examenes_subgrupos::all();
@@ -113,27 +119,31 @@ class ExamenController extends Controller
      */
     public function edit($id)
     {
-       /* $examenes = new Examen();
+        $examenes = new Examen();
         $examen_consubgrupo = $examenes->join('examen_subgrupo', 'examenes.idexamen', '=', 'examen_subgrupo.idexamen')
            ->select('examenes.idexamen as idexamen','examenes.decripcion as descripcion_e',
                     'examenes.precio as precio','examen_subgrupo.idgrupo as idgrupo',
                     'examen_subgrupo.descripcion_sg as descripcion_sg',
                     'examen_subgrupo.v_referencia_sg as v_referencia_sg')
                     ->where('examen_subgrupo.idgrupo as idgrupo',$id)->get();
-        return view('Examen.edit',compact($examen_consubgrupo));*/
-        return $id;
+        return view('Examen.edit',compact($examen_consubgrupo));
+        //return $id;
     }
     public function editargrupo($id,$idg){
         $examenes = new Examen();
+    if($idg>0){
         $subgrupos = $examenes->join('examen_subgrupo', 'examenes.idexamen', '=', 'examen_subgrupo.idexamen')
-           ->select('examenes.idexamen as idexamen','examenes.decripcion as descripcion_e',
-                    'examenes.precio as precio','examen_subgrupo.idgrupo as idgrupo',
-                    'examen_subgrupo.descripcion_sg as descripcion_sg',
-                    'examen_subgrupo.v_referencia_sg as v_referencia_sg')
-                    ->where('examen_subgrupo.idgrupo',$idg)
-                    ->where('examenes.idexamen',$id)->get();
+        ->select('examenes.idexamen as idexamen','examenes.decripcion as decripcion',
+        'examenes.precio as precio','examen_subgrupo.idgrupo as idgrupo',
+        'examen_subgrupo.descripcion_sg as descripcion_sg',
+        'examen_subgrupo.v_referencia_sg as v_referencia_ex')
+        ->where('examen_subgrupo.idgrupo',$idg)
+        ->where('examenes.idexamen',$id)->get();
+    }else{
+        $subgrupos= $examenes->select('*')->where('idexamen',$id)->get();
+    }
+       
         return view('Examen.edit',compact('subgrupos'));
-     // return $examen_consubgrupo;   
     }
     /**
      * Update the specified resource in storage.
@@ -144,7 +154,7 @@ class ExamenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $request->input('decripcion');
     }
 
     /**

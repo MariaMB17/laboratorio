@@ -1,11 +1,17 @@
 @extends('layout.app')
 
-@section('title', 'Page  Inicial')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Bienvenido</div>
 
-    @section('content')
-        <div class="title">Laravel</div>
-    @endsection
-
-
-
-
+                <div class="panel-body">
+                    Para ingresa al sistema debe loguearse......****
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

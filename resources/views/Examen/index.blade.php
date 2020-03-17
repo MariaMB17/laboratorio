@@ -1,14 +1,15 @@
 @extends('layout.app')
 @section('title', 'Examenes')
 @section('content')
-<h1>Listado de Examenes</h1>
+
+
+    <div class="container">
+     <div class="panel panel-default">
+         <div class="panel-heading">Examenes</div><br>
   <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Items CRUD</h2>
-            </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('examen.create') }}">Registrar examen</a>
+                <a class="btn btn-success" href="{{ route('examen.create') }}">Registrar examen</a><br>
             </div>
         </div>
     </div>
@@ -20,22 +21,22 @@
     @endif
 
     <table class="table table-bordered">
-        <tr>
-            <th>Código Examen</th>
-            <th>Descripción</th>
-            <th>Valor de referencia</th>
-            <th>Subgrupo</th>
-            <th>Precio</th>
-            <th width="280px">Action</th>
+        <tr style="text-align:center;">
+            <th style="text-align:center;">Código Examen</th>
+            <th style="text-align:center;">Descripción</th>
+            <th style="text-align:center;">Valor de referencia</th>
+            <th style="text-align:center;">Subgrupo</th>
+            <th style="text-align:center;">Precio</th>
+            <th style="text-align:center;">Action</th>
         </tr>
     @foreach($subgrupos as $subgrup)
     <tr>
-        <td>{{$subgrup->idexamen}}</td>
-        <td>{{$subgrup->decripcion}}</td>
-        <td>{{$subgrup->valor_referencia}}</td>
-        <td>{{$subgrup->descripcion_sg}}</td>
-        <td>{{$subgrup->precio}}</td>
-        <td>
+        <td style="text-align:center;">{{$subgrup->idexamen}}</td>
+        <td style="text-align:center;">{{$subgrup->decripcion}}</td>
+        <td style="text-align:center;">{{$subgrup->valor_referencia}}</td>
+        <td style="text-align:center;">{{$subgrup->descripcion_sg}}</td>
+        <td style="text-align:center;">{{$subgrup->precio}}</td>
+        <td style="text-align:center;">
             
             <a class="btn btn-primary" href="./examen/{{$subgrup->idexamen}}/{{$subgrup->idgrupo}}">Edit</a>
             {!! Form::open(['method' => 'DELETE','route' => ['examen.destroy', $subgrup->idexamen],'style'=>'display:inline']) !!}
@@ -45,4 +46,8 @@
     </tr>
     @endforeach
     </table>
+        </div>
+    </div>
+
+
 @endsection
